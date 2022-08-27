@@ -1,0 +1,29 @@
+###
+POST http://localhost:3000/cursos/programacion
+
+###
+POST http://localhost:3000/cursos/programacion HTTP/1.1
+Content-Type: application/json
+
+{
+  "titulo": "Aprende Node.js",
+}
+
+###
+GET http://localhost:3000/cursos/programacion
+
+###
+
+GET http://localhost:3000/cursos/programacionasdad
+
+###
+
+GET http://localhost:3000/
+
+###
+
+DELETE http://localhost:3000/cursos/programacion
+
+###
+
+PUT http://localhost:3000/cursos/programacionasdad
