@@ -21,23 +21,23 @@ Cómo se ejecuta un archivo de node.js? */
 const hola = 1;
 console.log(hola);
 
-const a = "hola";
-const b = "chau";
+const a = 'hola';
+const b = 'chau';
 
 function log(a, b) {
   console.log(a, b);
 }
 console.log(a, b);
-console.log("fede", "irarrazaval");
-console.log("Hola, estamos en el modulo", "M3");
+console.log('fede', 'irarrazaval');
+console.log('Hola, estamos en el modulo', 'M3');
 
 /*
 !MODULOS:
 No es más que un bloque de código que busca solucionar un problema. En node vamos a tener que trabajar con require y module.exports. Si queremos trabajar con otros tipos se puede hacer, pero este es el recomendado. Ejemplo: */
 
-var util = require("util"); // no usamos ./ porque es un modulo
-var nombre = "Toni";
-var saludo = util.format("Hola, %s", nombre);
+var util = require('util'); // no usamos ./ porque es un modulo
+var nombre = 'Toni';
+var saludo = util.format('Hola, %s', nombre);
 util.log(saludo);
 
 /* Gestor de paquetes:
@@ -63,35 +63,35 @@ Con npm init -y le decís que todo a si entonces se intala de una.*/
 1) Una forma:*/
 //A)Exporta:
 function en() {
-  console.log("Hello");
+  console.log('Hello');
 }
 module.exports = e;
 //B)Importa:
-var saludoEn = require("./en.js");
+var saludoEn = require('./en.js.js');
 
 //2) Otra forma
 //A)Exporta:
 let es = function () {
-  console.log("Hola");
+  console.log('Hola');
 };
 module.exports = es;
 //B)Importa:
-var saludoEs = require("./es.js");
+var saludoEs = require('./es.js.js');
 
 //3) Otra forma:
 //A)Exporta:
-const portu = () => "Du Brasil, banana";
+const portu = () => 'Du Brasil, banana';
 module.export = portu;
 //B)Importa:
-var saludoPortu = require("./portu.js");
+var saludoPortu = require('./portu.js.js');
 
 //4) Otra forma:
 //A)Exporta:
 module.exports = function italian() {
-  console.log("Paparitse papariri! Luigi!");
+  console.log('Paparitse papariri! Luigi!');
 };
 //B)Importa:
-var saludoItalian = require("./italian.js");
+var saludoItalian = require('./italian.js.js');
 
 /*!Solo se puede un module.export por archivo.
 Si quiero importar de a varios hago lo siguiente: */
@@ -105,19 +105,19 @@ module.exports = {
 };
 
 // IMPORTA Y EJECUTA EN OTRO ARCHIVO:
-let saludos = require("./saludos.js");
+let saludos = require('./saludos.js.js');
 console.log(saludos.en());
 
 // Export yub, para leer archivos:
-let fs = require("fs"); //fs representa file system y sirve para leer archivos. Previamente hay que hacer npm install fs. Luego, para usarlo:
+let fs = require('fs'); //fs representa file system y sirve para leer archivos. Previamente hay que hacer npm install fs. Luego, para usarlo:
 //readFileSync => leer archivos de forma sincrónica, por lo tanto se para toda la ejecución hasta que no se termino de leer no se avanza.
 let dada = fs.readFileSync(
-  "./idiomas/en.js",
-  "utf-8" /* el utf son los encodings */
+  './idiomas/en.js',
+  'utf-8' /* el utf son los encodings */
 ); /* lee el archivo y lo aloja en data */
 console.log(data); /*  */
 //readFile => lee el archivo de forma asincrónica, cuando termine de leerse se ejecuta el callback.
-fs.readFile("./idiomas/en.js", "utf-8", (err, data) => {
+fs.readFile('./idiomas/en.js', 'utf-8', (err, data) => {
   if (err) {
     console.log(err);
     return;
