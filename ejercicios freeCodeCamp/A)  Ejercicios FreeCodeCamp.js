@@ -224,10 +224,10 @@ Node es sólo un entorno JavaScript. Al igual que JavaScript en el lado del clie
 
 !Inicia un servidor Express
 */
-let express = require("express");
+let express = require('express');
 let app = express();
 
-console.log("Hello World");
+console.log('Hello World');
 
 module.exports = app;
 
@@ -241,3 +241,35 @@ En Express, las rutas toman la siguiente estructura: app.METHOD(PATH, HANDLER). 
 // function(req, res) {
 //   res.send('Response String');
 // }
+let express = require('express');
+let app2 = express();
+
+app2.get('/', (req, res) => {
+  res.send('Hello Express');
+});
+
+module.exports = app2;
+
+/*
+!Sirve un archivo HTML
+Puedes responder a peticiones con un archivo utilizando el método res.sendFile(path).
+
+Ejemplo:
+app.get('/', ...)
+
+Este método necesita una ruta de archivo absoluta.
+Ejemplo:
+
+absolutePath = __dirname + relativePath / file.ext;
+
+Envía el archivo /views/index.html como respuesta a las solicitudes GET a la ruta /. Si ves tu aplicación en vivo, debes ver un gran encabezado HTML (y un formulario que usaremos más adelante…), sin ningún estilo aplicado.
+*/
+let express = require('express');
+let app3 = express();
+let absolutePath = __dirname + `/views/index.html`;
+
+app3.get('/', (req, res) => {
+  res.sendFile(absolutePath);
+});
+
+module.exports = app3;
