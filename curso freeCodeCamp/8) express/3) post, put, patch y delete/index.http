@@ -1,0 +1,36 @@
+POST http://localhost:1337/api/cursos/programacion HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "titulo"  : "Aprende Node.js",
+  "lenguaje" : "javascript",
+  "vistas" : 45676,
+  "nivel" : "basico"
+}
+
+###
+PUT http://localhost:1337/api/cursos/programacion/2 HTTP/1.1
+Content-Type: application/json
+
+{
+  "id": 2,
+  "titulo" : "Cambié el título con el PUT!",
+  "lenguaje" : "python",
+  "vistas" : 123996,
+  "nivel" : "intermedio"
+}
+
+###
+PATCH http://localhost:1337/api/cursos/programacion/3 HTTP/1.1
+Content-Type: application/json
+
+{
+  "titulo" : "Cambié el título con el PATCH!",
+  "vistas" : 999999
+}
+
+###
+DELETE http://localhost:1337/api/cursos/programacion/1 HTTP/1.1
+
+
