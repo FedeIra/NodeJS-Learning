@@ -1,4 +1,4 @@
-const { infoCursos } = require('..datos/cursos.js');
+const { infoCursos } = require(`./datos/cursos.js`);
 const routerProgramacion = require('./routers/programacion.js');
 const routerMatematicas = require('./routers/matematicas');
 
