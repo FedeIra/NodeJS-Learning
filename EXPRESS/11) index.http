@@ -1,0 +1,39 @@
+GET http://localhost:1337/status HTTP/1.1
+//Not Found
+###
+
+GET http://localhost:1337/obj HTTP/1.1
+# {
+#   "status": "OK",
+#   "message": "Estoy en /obj"
+# }
+###
+
+GET http://localhost:1337/user/saludo/fede HTTP/1.1
+// Hola fede
+###
+
+GET http://localhost:1337/query?nombre=fede&apellido=irarrazaval HTTP/1.1
+// Hola fede... y parte te devuelva en la consola: { nombre: 'fede', apellido: 'irarrazaval' }
+###
+
+GET http://localhost:1337/query/users HTTP/1.1
+
+###
+
+GET http://localhost:1337/query/users/2 HTTP/1.1
+# {
+#   "id": 2,
+#   "name": "Pedro"
+# }
+
+###
+
+POST http://localhost:1337/usuarios HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Fede",
+  "lastName": "Irarrazaval"
+}
+// Usuario Fede Irarrazaval creado con éxito
