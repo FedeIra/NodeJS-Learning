@@ -1,0 +1,17 @@
+name: Check Point
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check Point Correction Job
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - run: npm install
+    - run: npm run test:ci
+      timeout-minutes: 2
