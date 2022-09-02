@@ -1,3 +1,6 @@
+//! SI SOLO QUIERO MANDAR STATUS (SIN MENSAJE NI NADA)
+res.sendStatus(404); /* es un ejemplo, pero es el sendStatus */
+
 // ------------------------- Ejemplo 1 ----------------------------------
 server.get('/posts', (req, res) => {
   const { term } = req.query;
