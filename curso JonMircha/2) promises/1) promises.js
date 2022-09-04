@@ -39,10 +39,10 @@ const makeServerRequest2 = new Promise((resolve, reject) => {
 
   if (responseFromServer) {
     // Cambia esta línea
-    resolve("We got the data");
+    resolve('We got the data');
   } else {
     // Cambia esta línea
-    reject("Data not received");
+    reject('Data not received');
   }
 });
 
@@ -62,9 +62,9 @@ const makeServerRequest3 = new Promise((resolve, reject) => {
   let responseFromServer = true;
 
   if (responseFromServer) {
-    resolve("We got the data");
+    resolve('We got the data');
   } else {
-    reject("Data not received");
+    reject('Data not received');
   }
 });
 
@@ -86,9 +86,9 @@ const makeServerRequest4 = new Promise((resolve, reject) => {
   let responseFromServer = false;
 
   if (responseFromServer) {
-    resolve("We got the data");
+    resolve('We got the data');
   } else {
-    reject("Data not received");
+    reject('Data not received');
   }
 });
 
@@ -100,15 +100,15 @@ makeServerRequest.catch((error) => {
   console.log(error);
 }); // "Data not received"
 
-// TODO JUNTO:
+//- TODO JUNTO:
 const makeServerRequest5 = new Promise((resolve, reject) => {
   // responseFromServer es establecido a true para representar una respuesta satisfactoria del servidor
   let responseFromServer = true;
 
   if (responseFromServer) {
-    resolve("We got the data");
+    resolve('We got the data');
   } else {
-    reject("Data not received");
+    reject('Data not received');
   }
 })
   .then((result) => {
@@ -117,3 +117,56 @@ const makeServerRequest5 = new Promise((resolve, reject) => {
   .catch((error) => {
     console.log(error);
   });
+
+// ------------------------------------
+function cuadradoPromise(value) {
+  if (typeof value !== 'number') {
+    return Promise.reject(
+      `Error, el valor "${value}" ingresado no es un número`
+    );
+  }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({
+        value,
+        result: value * value,
+      });
+    }, 0 | (Math.random() * 1000));
+  });
+}
+
+cuadradoPromise(2)
+  .then((obj) => {
+    console.log('Inicio Promise');
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    return cuadradoPromise(1);
+  })
+  .then((obj) => {
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    return cuadradoPromise(2);
+  })
+  .then((obj) => {
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    return cuadradoPromise(3);
+  })
+  .then((obj) => {
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    return cuadradoPromise(4);
+  })
+  .then((obj) => {
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    return cuadradoPromise('ponele');
+  })
+  .then((obj) => {
+    console.log(`Promise: ${obj.value}, ${obj.result}`);
+    console.log('Fin Promise');
+  })
+  .catch((err) => console.log(err));
+
+// 'Inicio Promise'
+// 'Promise: 2, 4'
+// 'Promise: 1, 1'
+// 'Promise: 2, 4'
+// 'Promise: 3, 9'
+// 'Promise: 4, 16'
+// 'Error, el valor "ponele" ingresado no es un número'
