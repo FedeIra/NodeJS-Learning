@@ -21,7 +21,10 @@ noSoyAsincrona();
 console.log(
   '-------------------------------terminando primer proceso-------------------------------------'
 );
-
+//Resultado:
+// iniciando proceso...
+// Hola soy una función asincrona
+// -------------------------------terminando primer proceso-------------------------------------
 // No hay asincronia todavía
 
 const soyAsincrona = () => {
@@ -36,6 +39,11 @@ soyAsincrona();
 console.log(
   '---------------------------------------------terminando segundo proceso----------------------------------'
 );
+//Resultado:
+// iniciando segundo proceso
+// Hola soy una función asincrona
+// ---------------------------------------------terminando segundo proceso----------------------------------
+// Estoy siendo asincrona
 
 // Ahora si hay asincronia. Se ejecuta todas las funciones, pero se realiza primero el terminando segundo proceso antes que el time out. Para corregir esto puedo usar callback:
 
@@ -54,3 +62,93 @@ soyAsincronaConCallback(function () {
     '---------------------------------------------Terminando tercer proceso---------------------------------------------'
   );
 });
+
+//Resultado:
+// iniciando tercer proceso
+// Hola soy una función asincrona
+// Estoy siendo asincrona
+// ---------------------------------------------Terminando tercer proceso---------------------------------------------
+
+// Otro ejemplo de callbacks
+const hola1 = (nombre, miCallback) => {
+  setTimeout(() => {
+    console.log('Hola, ' + nombre);
+    miCallback();
+  }, 1000);
+};
+
+const adios1 = (nombre, otroCallback) => {
+  setTimeout(() => {
+    console.log(`Adios, ${nombre}`);
+    otroCallback();
+  }, 1000);
+};
+
+console.log('Iniciando proceso...');
+
+hola1('Carlos', function () {
+  adios1('Carlos', () => {
+    console.log('Terminando proceso...');
+  });
+});
+
+//Resultado:
+// Iniciando proceso...
+// Hola, Carlos
+// Adios, Carlos
+// Terminando proceso...
+
+// Otro ejemplo de callbacks
+const hola = (nombre, miCallback) => {
+  setTimeout(() => {
+    console.log('Hola, ' + nombre);
+    miCallback();
+  }, 1500);
+};
+
+const adios = (nombre, otroCallback) => {
+  setTimeout(() => {
+    console.log(`Adios, ${nombre}`);
+    otroCallback();
+  }, 1000);
+};
+
+console.log('Iniciando proceso...');
+
+hola('Carlos', () => {});
+adios('Carlos', () => {});
+
+//Resultado:
+// Iniciando proceso...
+// Adios, Carlos
+// Hola, Carlos
+
+/* Estos son los problemas de asincronía. No sabes cuánto va a tardar en ejecutarse cada petición a la API o base de datos. Entonces puede pasar que se ejecuta primero una función que no correspondía (Adios Carlos) antes que la primera función que correspondía (Hola Carlos) */
+
+// Otro ejemplo en el que callbacks comparten parámetros:
+const hola2 = (nombre, miCallback) => {
+  setTimeout(() => {
+    console.log('Hola, ' + nombre);
+    miCallback(nombre); // el callback comparte la información en este caso
+  }, 1500);
+};
+
+const adios2 = (nombre, otroCallback) => {
+  setTimeout(() => {
+    console.log(`Adios, ${nombre}`);
+    otroCallback();
+  }, 1000);
+};
+
+console.log('Iniciando proceso...');
+hola2('Carlos', (nombre) => {
+  adios2(nombre, () => {
+    console.log('Terminando proceso...');
+  });
+});
+
+// Resultado:
+// Iniciando proceso...
+// Hola, Carlos
+// Adios, Carlos
+// Terminando proceso...
