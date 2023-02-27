@@ -94,7 +94,6 @@ Para modularizar todo lo máximo posible, separamos las rutas según categoría 
 */
 
 /*
-?POST
 !6) MIDDLEWARE:
 *1) para poder hacer rutas post agrego middleware en index.js donde se escucha el puerto (app.use(express.json());)
 
@@ -104,6 +103,32 @@ Ayuda a los desarrolladores a diseñar aplicaciones con mayor eficiencia. Ademá
 */
 
 /*
-? DELETE, PUT, PATCH
+? POST, DELETE, PUT, PATCH
 El PATCH actualiza parcialmente, por lo que no es necesario pasarle todos los datos completos, sino aquellos que se quiren actualizar.
+
+?HTTP response status code:
+200: OK
+201: Created
+204: No Content
+400: Bad Request
+401: Unauthorized
+403: Forbidden
+404: Not Found
+500: Internal Server Error
+501: Not Implemented
+502: Bad Gateway
+503: Service Unavailable
+504: Gateway Timeout
+
+Los status tienen que coincidir con los resultados de la petición. Ej: cuando se hace un post tiene que devolver un 201. A veces el status por default está bien, pero no es el caso del post. Hay que forzarlo en el código.
+
+!7) HTTP STATUS CODE:
+*1)res.status(404).json...
+
+!8) SERVICIOS:
+*1) crear carpeta services para modularizar todavía más
+*2) crear archivo productsServices.js donde va a estar nuestro servicio de productos, create, delete, update, generate, etc.
+*3) le pasamos nuestro código que antes teníamos en las rutas para meter toda la lógica en los servicios. Al igual que las exportaciones que se apliquen con esa lógica, ejemplo: faker
+*4) importamos el servicio (de productService.js) en las rutas (productsRouter) y lo usamos en las rutas.
+
 */
