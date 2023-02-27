@@ -73,3 +73,21 @@ Para usar data fake y probar distintos endpoints podemos usar una librería. Per
 *1) npm i faker
 *2) se importa en index.js
 */
+
+/*
+?Single Responsability Principle(SRP):
+Cada función debe tener una única responsabilidad. Si una función hace más de una cosa, es mejor separarla en dos funciones. Aplica para clases, archivos, métodos. Esto también aplica a las rutas.
+*/
+
+/*
+!ROUTERS:
+Para modularizar todo lo máximo posible, separamos las rutas según categoría o lo que busquen creando una carpeta routers. Ahi vamos separando archivos con rutas de la misma categoría/
+*1) folder routes
+*2) copy/pase routes en distintos archivos según categoría.
+*3) require express y express.router
+*4) cambiar ruta app por router, y borrar primera ruta de la url /products = /
+*5) exportar router
+*6) importar router en nuevo index.js dentro de carpeta routes
+*7) crear e importar router en index.js principal
+*8) require routerApi en index principal de las rutas y routerApi(app);
+*/

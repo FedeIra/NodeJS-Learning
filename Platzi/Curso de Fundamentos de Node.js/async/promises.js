@@ -41,6 +41,8 @@ hola('Carlos')
   .then((nombre) => {
     console.log('Terminado el proceso...');
   })
+  /* then with more than one parameter: */
+
   .catch((error) => {
     console.log('Ha habido un error:');
     console.error(error);
