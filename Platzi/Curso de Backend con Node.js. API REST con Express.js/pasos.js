@@ -1,6 +1,8 @@
 /*
 !EXPRESS.JS
 
+PASOS:
+
 !1) ENTORNO DE PRODUCCIÓN:
 
 Primero trabajamos con el entorno utilizando nodemon como servidor de desarrollo.
@@ -26,4 +28,16 @@ Corres el entorno de desarrollo.
 *9) npm run start
 Corres el entorno de producción.
 
+*/
+
+/*
+!2) INSTALACIÓN DE EXPRESS Y SERVIDOR
+*1) npm i express
+*2) index.js
+*3) npm run dev
+Para correrlo en modo de desarrollo
+Abrir localhost, puerto que le hayas puesto.
+
+!3) RUTAS
+*1)
 */
