@@ -39,5 +39,6 @@ Para correrlo en modo de desarrollo
 Abrir localhost, puerto que le hayas puesto.
 
 !3) RUTAS
-*1)
+*1) Podes agregar nuevas rutas. En general hay que usar res.json
+*2) instalar JSON viewer si no lo tenes
 */
