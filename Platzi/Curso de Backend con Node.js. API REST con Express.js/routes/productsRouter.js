@@ -57,4 +57,63 @@ router.get('/:id', (req, res) => {
 //   }); //Json es el formato más utilizado. Si es un solo objeto, debería obtener con id
 // });
 
+//? POST para crear un producto
+router.post('/', (req, res) => {
+  /* obtain in body name, price and image and send response with json of new product: */
+  const { name, price, image } = req.body;
+  // http://localhost:3000/products
+  res.json({
+    // message: 'created',
+    name,
+    price,
+    image,
+  });
+});
+
+//? PATCH para modificar un producto.
+//Debe recibir el id, y aparte en body los atributos que quieran cambiarse
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'updated',
+    data: body,
+    id,
+  });
+});
+// url example: http://localhost:3000/api/v1/products/123
+
+/* Response:
+{
+	"message": "updated",
+	"data": {
+		"name": "New product",
+		"price": 23
+	},
+	"id": "123"
+}
+*/
+
+//? PUT: para modificar un producto.
+//Debe recibir el id, y aparte en body los atributos que quieran cambiarse
+router.put('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'updated',
+    data: body,
+    id,
+  });
+});
+
+//? DELETE: para eliminar un producto.
+//Debe recibir el id sin cuerpo
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'deleted',
+    id,
+  });
+});
+
 module.exports = router;

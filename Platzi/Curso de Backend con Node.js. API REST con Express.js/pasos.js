@@ -80,7 +80,7 @@ Cada función debe tener una única responsabilidad. Si una función hace más d
 */
 
 /*
-!ROUTERS:
+!5) ROUTERS:
 Para modularizar todo lo máximo posible, separamos las rutas según categoría o lo que busquen creando una carpeta routers. Ahi vamos separando archivos con rutas de la misma categoría/
 *1) folder routes
 *2) copy/pase routes en distintos archivos según categoría.
@@ -90,4 +90,20 @@ Para modularizar todo lo máximo posible, separamos las rutas según categoría 
 *6) importar router en nuevo index.js dentro de carpeta routes
 *7) crear e importar router en index.js principal
 *8) require routerApi en index principal de las rutas y routerApi(app);
+*9) agregarle al rutas un /api/v1 inicial. Crear ruta maestra para eso
+*/
+
+/*
+?POST
+!6) MIDDLEWARE:
+*1) para poder hacer rutas post agrego middleware en index.js donde se escucha el puerto (app.use(express.json());)
+
+El término middleware se refiere a un sistema de software que ofrece servicios y funciones comunes para las aplicaciones. En general, el middleware se encarga de las tareas de gestión de datos, servicios de aplicaciones, mensajería, autenticación y gestión de API.
+⠀⠀⠀
+Ayuda a los desarrolladores a diseñar aplicaciones con mayor eficiencia. Además, actúa como hilo conductor entre las aplicaciones, los datos y los usuarios.
+*/
+
+/*
+? DELETE, PUT, PATCH
+El PATCH actualiza parcialmente, por lo que no es necesario pasarle todos los datos completos, sino aquellos que se quiren actualizar.
 */
