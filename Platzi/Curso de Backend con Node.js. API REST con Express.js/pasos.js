@@ -41,4 +41,28 @@ Abrir localhost, puerto que le hayas puesto.
 !3) RUTAS
 *1) Podes agregar nuevas rutas. En general hay que usar res.json
 *2) instalar JSON viewer si no lo tenes
+
+!4) API Restfull
+REST:: representational state transfer. Servicios web que se comunican por el protocolo http. Tiene 4 metodos: get, put, post y delete.
+
+CRUD: create, read, update, delete.
+
+Get: solicitar info.
+Put: trabaja sobre modificaciones.
+Patch: update
+Post: para crear nuevos productos, categorías, etc.
+Delete: para hacer eliminación.
+
+Table with method of rest, application in /products route and application in /products{id} route:
+
+Method | /products | /products/:id
+-------|-----------|---------------
+GET    | get list  | Get
+PUT    | replace   | Update/Get a product
+PATCH  | No apply  | Update
+POST   | Create    | No apply
+DELETE | Delete    | Delete
+
+Patch debería enviarle solo los datos que quiero modificar. En put se reemplaza todo por lo que tengo que mandar todos los datos del producto por ejemplo.
+
 */
