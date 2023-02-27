@@ -42,7 +42,7 @@ Abrir localhost, puerto que le hayas puesto.
 *1) Podes agregar nuevas rutas. En general hay que usar res.json
 *2) instalar JSON viewer si no lo tenes
 
-!4) API Restfull
+?API Restfull
 REST:: representational state transfer. Servicios web que se comunican por el protocolo http. Tiene 4 metodos: get, put, post y delete.
 
 CRUD: create, read, update, delete.
@@ -65,4 +65,11 @@ DELETE | Delete    | Delete
 
 Patch debería enviarle solo los datos que quiero modificar. En put se reemplaza todo por lo que tengo que mandar todos los datos del producto por ejemplo.
 
+Los endpoints son las URLs de un API o un backend que responden a una petición. Los mismos entrypoints tienen que calzar con un endpoint para existir. Algo debe responder para que se renderice un sitio con sentido para el visitante.
+
+!4: DATA FAKE
+Para usar data fake y probar distintos endpoints podemos usar una librería. Permite generar date fake.
+
+*1) npm i faker
+*2) se importa en index.js
 */
