@@ -131,4 +131,69 @@ Los status tienen que coincidir con los resultados de la petición. Ej: cuando s
 *3) le pasamos nuestro código que antes teníamos en las rutas para meter toda la lógica en los servicios. Al igual que las exportaciones que se apliquen con esa lógica, ejemplo: faker
 *4) importamos el servicio (de productService.js) en las rutas (productsRouter) y lo usamos en las rutas.
 
+!9) ASYNC AWAIT
+*1) Poner async en cada función dentro de la clase ProductsService
+*2) Poner async en cada ruta y await en las promesas
+Los servicios suelen ser todos asincronos, por lo que hay que meterle async await.
+
+!10) TRY CATCH
+*1) try catch en cada ruta
+
+?MIDDLEWARES: están en medio del request y el response. Se ejecutan antes de que llegue al response. En donde nos permite procesar lógica. Pueden ser utilizados de forma global, capturando errores como de forma única para cada ruta o endpoint. Puede funcionar de forma secuencial. Puedo tener varios middleware que se ejecuten en orden. Pueden ser asincronos. Eso puede servir para validar usuarios, datos, autenticar, etc. Un middleware podría bloquear la petición y no dejar que llegue al response.
+
+CASOS DE USO:
+A) Funcionan como pipes. En forma secuencial, uno seguido del otro.
+B) Validar datos
+C) Capturar errores
+D) Validar permisos
+E) Controlar accesos.
+
+
+Para aplicar middlewares podemos usar if/res.send / else/next():
+
+function(req, res, next) {
+  if (something) {
+    res.send('end');
+} else {
+    next();
+  }
+}
+?next() es para que siga con el siguiente middleware o con el response.
+?send() es para que no siga con el siguiente middleware y termine la petición.
+
+Hay otros errores de middlewares tipo error:
+
+function(error, req, res, next) {
+  if (error) {
+    res.status(500).json({error});
+} else {
+    next();
+  }
+}
+
+!11) MIDDLEWARE DE ERROR:
+*1) creamos carpeta solo para middlewares
+*2) creamos archivo de middleware de errores (errorHandler)
+*3) en el archivo index donde está el puerto escuchando agregamos de forma secuencial y luego del router los middleware de errores app.use(logErrors) y app.use(errorHandler);
+*4) al archivo de rutas (productsRouter) le agregamos next como parametro para poder usar los middlewares y al catch le ponemos el next(error) para ejecutar middleware en caso de error
+
+El problema de esto es que todos los errores los tira con el mismo state, lo que es una mala práctica. Esto se soluciona con lo siguiente:
+
+!12) MIDDLEWARE DE ERRORES - LIBRERÍA BOOM: para middleware de errores con respectivos state errors:
+*1) npm i @hapi/boom
+*2) importamos boom en nuestros servicios (productService.js)
+*3) en lugar de throw error o catch errores implementamos throw boom
+*4) agregar middleware especial para boom para mandar formato adecuado.
+*5) lo importamos en index.js
+*6) modificamos el catch error en las rutas y que manden next(error) para entrar al middleware y lo agregamos también como parametro junto al req, res.
+*7) podemos agregar reglas de negocio, como que en lugar de producto no encontrado, que este bloqueado. Agregamos esta propiedad al generate();
+*7) Agregamos al productsService está lógica para el caso de boom.conflict . De esta manera, podemos respetar mejor los status.codes de errores.
 */
+
+/*
+!13) MIDDLEWARE DE AUTENTICACIÓN - LIBRERÍA JOI: validar los datos que me mandan desde el cliente. Que cumpla ocn la integridad de datos requerida para insertarlo a la base de datos y vengan los atributos que necesitamos. Validarlos antes de que llegue al servicio.
+Joi sirve especialmente para la validación de esquemas.
+*1) npm i joi
+*2) creamos carpeta de para autenticación donde creamos los esquemas. productSchema.js
+*3) creamos archivo de middleware para autenticación en la carpeta de middlewares (validatorHandler.js) y le importamos boom para caso de que no pase autenticación
+ */

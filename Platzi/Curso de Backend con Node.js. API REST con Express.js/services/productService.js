@@ -1,5 +1,6 @@
 const { faker } = require('@faker-js/faker');
 
+const boom = require('@hapi/boom');
 // Utilizamos programación orientada a objetos.
 
 class ProductsService {
@@ -9,7 +10,7 @@ class ProductsService {
     this.products = []; // acá deberíamos conectarlo a una fuente de datos
     this.generate(); // cada vez que generamos una instancia del servicio genera los 100 productios iniciales. Gracias a esto los datos quedan vivos en memoria gracias a persistencia, pero muy volatil.
   }
-  generate() {
+  async generate() {
     const limit = 100;
 
     for (let i = 0; i < limit; i++) {
@@ -18,19 +19,66 @@ class ProductsService {
         name: faker.commerce.product(),
         price: parseInt(faker.commerce.price(), 10),
         image: faker.image.avatar(),
+        isBlock: faker.datatype.boolean(),
       });
     }
   }
-  create() {}
+  async create(/* name, price, image */ data) {
+    const newProduct = {
+      id: faker.datatype.uuid(),
+      // name,
+      // price,
+      // image,
+      ...data,
+    };
+    this.products.push(newProduct);
+    return newProduct;
+  }
   find() {
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve(this.products);
+    //   }, 5000);
+    // });
     return this.products; //con esto devuelvo la lista de los 100 productos
   }
-  findOne(id) {
+  async findOne(id) {
     /* find product by id: */
-    return this.products.find((item) => item.id === id); // con esto devuelvo el producto que coincida con el id que le paso
+    const product = this.products.find((item) => item.id === id); // con esto devuelvo el producto que coincida con el id que le paso
+    if (!product) {
+      // throw new Error('Product not found');
+      throw boom.notFound('Apologies. Product not found.'); //? con boom podemos manejar los errores de una manera más amigable
+    }
+    if (product.isBlock) {
+      // throw new Error('Product not found');
+      throw boom.conflict('Apologies. Product is blocked.'); //? con boom podemos manejar los errores de una manera más amigable
+    }
+    return product;
   }
-  update() {}
-  delete() {}
+  async update(id, changes) {
+    const index = this.products.findIndex((item) => item.id === id);
+
+    if (index === -1) {
+      // throw new Error('Apologies. Product not found.');
+      throw boom.notFound('Apologies. Product not found.');
+    }
+    const product = this.products[index];
+    this.products[index] = {
+      ...product,
+      ...changes,
+    }; // de esta manera persiste la info anterior
+    return this.products[index];
+  }
+  async delete(id) {
+    const index = this.products.findIndex((item) => item.id === id);
+
+    if (index === -1) {
+      // throw new Error('Apologies. Product not found.');
+      throw boom.notFound('Apologies. Product not found.');
+    }
+    this.products.splice(index, 1);
+    return { id };
+  }
 }
 
 module.exports = ProductsService;
