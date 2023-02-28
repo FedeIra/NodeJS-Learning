@@ -161,42 +161,51 @@ router.patch(
 
 //? PUT: para modificar un producto.
 //Debe recibir el id, y aparte en body los atributos que quieran cambiarse
-router.put('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const body = req.body;
-    // res.json({
-    //   message: 'updated',
-    //   data: body,
-    //   id,
-    // });
-    const updatedProduct = await service.update(id, body); //? así llamamos a la función update del servicio de productos y actualizamos un producto del servicio mediante metodo update que devuelve el producto que actualizamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
-    res.json(updatedProduct);
-  } catch (error) {
-    // res.status(404).json({
-    //   message: error.message,
-    // });
-    next(error);
+router.put(
+  '/:id',
+  validatorHandler(getProductSchema, 'params'),
+  validatorHandler(updateProductSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      // res.json({
+      //   message: 'updated',
+      //   data: body,
+      //   id,
+      // });
+      const updatedProduct = await service.update(id, body); //? así llamamos a la función update del servicio de productos y actualizamos un producto del servicio mediante metodo update que devuelve el producto que actualizamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
+      res.json(updatedProduct);
+    } catch (error) {
+      // res.status(404).json({
+      //   message: error.message,
+      // });
+      next(error);
+    }
   }
-});
+);
 
 //? DELETE: para eliminar un producto.
 //Debe recibir el id sin cuerpo
-router.delete('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    // res.json({
-    //   message: 'deleted',
-    //   id,
-    // });
-    const deletedProduct = await service.delete(id); //? así llamamos a la función delete del servicio de productos y eliminamos un producto del servicio mediante metodo delete que devuelve el producto que eliminamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
-    res.json(deletedProduct);
-  } catch (error) {
-    // res.status(404).json({
-    //   message: error.message,
-    // });
-    next(error);
+router.delete(
+  '/:id',
+  validatorHandler(deleteProductSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      // res.json({
+      //   message: 'deleted',
+      //   id,
+      // });
+      const deletedProduct = await service.delete(id); //? así llamamos a la función delete del servicio de productos y eliminamos un producto del servicio mediante metodo delete que devuelve el producto que eliminamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
+      res.json(deletedProduct);
+    } catch (error) {
+      // res.status(404).json({
+      //   message: error.message,
+      // });
+      next(error);
+    }
   }
-});
+);
 
 module.exports = router;

@@ -198,3 +198,15 @@ Joi sirve especialmente para la validación de esquemas.
 *3) creamos archivo de middleware para autenticación en la carpeta de middlewares (validatorHandler.js) y le importamos boom para caso de que no pase autenticación
 *4) vamos a las rutas (productsRouter), importamos el validatorHandler y schemas y agregamos a cada ruta la función especifica del validator con su esquema y property.
  */
+
+/*
+?OTROS MIDDLEWARES POPULARES:
+*1) CORS: permite que el cliente pueda hacer peticiones a la API desde cualquier origen. npm i cors // http://expressjs.com/en/resources/middleware/cors.html
+*2) Helmet: Helmet nos ayuda a proteger nuestras aplicaciones Express configurando varios encabezados HTTP. // https://github.com/helmetjs/helmet
+*3) Morgan: Morgan es un middleware HTTP logger para Node.js. // http://expressjs.com/en/resources/middleware/morgan.html
+*4) Express Debug: Nos permite hacer debugging de nuestras aplicaciones en Express mediante el uso de un toolbar en la pagina cuando las estamos desarrollando. // https://github.com/devoidfury/express-debug
+*5) Express Slash: Este middleware nos permite evitar preocuparnos por escribir las rutas con o sin slash al final de ellas. // https://github.com/ericf/express-slash
+*6) Passport: Passport es un middleware que nos permite establecer diferentes estrategias de autenticación a nuestras aplicaciones. // https://github.com/jaredhanson/passport
+* OTROS: http://expressjs.com/en/resources/middleware.html
+
+*/
