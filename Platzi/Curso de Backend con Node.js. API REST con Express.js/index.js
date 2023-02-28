@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
+require('dotenv').config();
 
 const {
   logErrors,
@@ -8,12 +9,13 @@ const {
   boomErrorHandler,
 } = require('./middlewares/errorHandler.js'); //? importamos los middlewares de error
 
-const app = express(); //? creamos una instancia de express
+const server = express(); //? creamos una instancia de express
 
-const port = 3000; //? creamos una variable para el puerto
+// const port = 3000; //? creamos una variable para el puerto
+const port = process.env.PORT || 3000; //? para producción con variable en caso de que no exista el puerto
 
 /* Middleware: */
-app.use(express.json()); //? para que entienda los json que le llegan
+server.use(express.json()); //? para que entienda los json que le llegan
 
 /* CORS */
 // const whitelist = ['http://localhost:8080', 'https://myapp.co'];
@@ -27,26 +29,26 @@ app.use(express.json()); //? para que entienda los json que le llegan
 //   },
 // };
 // app.use(cors(options));
-app.use(cors()); //? para que no haya problemas de cors
+server.use(cors()); //? para que no haya problemas de cors
 
 /* Definimos una ruta inicial: */
-app.get('/', (req, res) => {
+server.get('/', (req, res) => {
   res.send('Hello Server in express!');
 });
 
-app.get('/new-route', (req, res) => {
+server.get('/new-route', (req, res) => {
   res.send('Hey, i am a new route or end point!');
 });
 
-routerApi(app); // de esta manera modularizamos nuestra aplicación
+routerApi(server); // de esta manera modularizamos nuestra aplicación
 
 /* Middleware de error. Tiene que ir siempre después del router. Los ponemos en el orden que queremos que se ejecuten: */
-app.use(logErrors);
-app.use(boomErrorHandler);
-app.use(errorHandler);
+server.use(logErrors);
+server.use(boomErrorHandler);
+server.use(errorHandler);
 
 /* Tenemos que decirle que escuche en un puerto: */
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Server listening on port ${port}`);
   // en producción no debería estar esto
 });
