@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
-require('dotenv').config();
+
+// Deployment:
+const cookieParser = require('cookie-parser'); //? para que entienda las cookies que le llegan
+const bodyParser = require('body-parser'); //? para que entienda los json que le llegan
+const morgan = require('morgan'); //? para ver las peticiones que se hacen a la API
+require('dotenv').config(); //? para que entienda las variables de entorno .env
 
 const {
   logErrors,
@@ -10,6 +15,12 @@ const {
 } = require('./middlewares/errorHandler.js'); //? importamos los middlewares de error
 
 const server = express(); //? creamos una instancia de express
+
+// Deployment:
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
+server.use(cookieParser());
+server.use(morgan('dev'));
 
 // const port = 3000; //? creamos una variable para el puerto
 const port = process.env.PORT || 3000; //? para producción con variable en caso de que no exista el puerto

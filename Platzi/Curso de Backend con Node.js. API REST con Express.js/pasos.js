@@ -225,4 +225,9 @@ Si es una API privada a la que le queres dar acceso a algunos en particular:
 ?4) Seguridad: HELMET. Colección de middlewares que le ponen una capa de seguridad.
 ?5) TESTING.
 
+!15) DEPLOYMENT:
+*1) Agregar bodyparser, cookieParser, morgan y dotenv
+*2) Agregar variables de entorno .env
+*3) Ajustar puerto a variable de entorno y otro por default
+*4) Railway
 */
