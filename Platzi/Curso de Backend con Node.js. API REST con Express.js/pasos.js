@@ -230,4 +230,9 @@ Si es una API privada a la que le queres dar acceso a algunos en particular:
 *2) Agregar variables de entorno .env
 *3) Ajustar puerto a variable de entorno y otro por default
 *4) Railway
+
+Queda finalmente todo deployado en https://nodejs-learning-production.up.railway.app/api
+
+Y con solo agregarle el resto de la url podes hacer los requests. Ejemplo:
+https://nodejs-learning-production.up.railway.app/api/v1/products
 */
