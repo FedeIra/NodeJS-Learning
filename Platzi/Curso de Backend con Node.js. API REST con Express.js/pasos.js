@@ -196,4 +196,5 @@ Joi sirve especialmente para la validación de esquemas.
 *1) npm i joi
 *2) creamos carpeta de para autenticación donde creamos los esquemas. productSchema.js
 *3) creamos archivo de middleware para autenticación en la carpeta de middlewares (validatorHandler.js) y le importamos boom para caso de que no pase autenticación
+*4) vamos a las rutas (productsRouter), importamos el validatorHandler y schemas y agregamos a cada ruta la función especifica del validator con su esquema y property.
  */

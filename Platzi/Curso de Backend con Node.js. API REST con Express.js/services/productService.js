@@ -23,7 +23,7 @@ class ProductsService {
       });
     }
   }
-  async create(/* name, price, image */ data) {
+  async create(data) {
     const newProduct = {
       id: faker.datatype.uuid(),
       // name,

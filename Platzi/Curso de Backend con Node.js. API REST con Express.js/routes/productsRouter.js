@@ -2,9 +2,17 @@ const express = require('express');
 
 const ProductsService = require('../services/productService.js'); //? importamos el servicio de productos para poder usarlo en el router de productos y así poder usarlo en el index.js
 
-const service = new ProductsService(); //? creamos una instancia del servicio de productos ya que se trata de una clase y no de un objeto literal
+const { validatorHandler } = require('../middlewares/validatorHandler.js');
+const {
+  createProductSchema,
+  updateProductSchema,
+  getProductSchema,
+  deleteProductSchema,
+} = require('./../schemas/productSchema'); // no corre de forma generica. Corren en la ruta
 
 const router = express.Router(); // Para crear un router y no tener que usar app.get, app.post, etc. sino router.get, router.post, etc. y luego exportar el router y usarlo en el index.js con app.use('/products', productsRouter); // así se usa el router en el index.js y se le pasa la ruta que va a tener el router y el router que se va a usar en esa ruta (productsRouter) que es el que se importa en el index.js con const productsRouter = require('./routes/productsRouter');
+
+const service = new ProductsService(); //? creamos una instancia del servicio de productos ya que se trata de una clase y no de un objeto literal
 
 // Para agarrar data del faker
 router.get('/', async (req, res, next) => {
@@ -40,33 +48,37 @@ router.get('/filter', async (req, res) => {
 });
 
 //? GET WITH PARAMS
-router.get('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params; // recogemos el id con destructuración
-    //! Mandamos la lógica del get with id a product services
-    // if (id === '999') {
-    //   res.status(404).json({
-    //     // solo para probar status de error
-    //     message: 'not found',
-    //   });
-    // } else {
-    //   res.status(200).json({
-    //     //El status 200 viene por default así ue no hace falta agregarlo.
-    //     id, // asi usamos el id
-    //     name: 'Keyboard',
-    //     price: 300,
-    //   });
-    // }
-    const product = await service.findOne(id); //? así llamamos a la función findOne del servicio de productos y saca el producto del servicio mediante metodo findOne que devuelve el producto que coincida con el id que le pasamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
+router.get(
+  '/:id',
+  validatorHandler(getProductSchema, 'params'), //? le pasamos el esquema de validación y por dónde recibe las propiedades que es en este caso es params. Si pasa todo bien, ejecuta el siguiente middleware que es el de la función de flecha de abajo.
+  async (req, res, next) => {
+    try {
+      const { id } = req.params; // recogemos el id con destructuración
+      //! Mandamos la lógica del get with id a product services
+      // if (id === '999') {
+      //   res.status(404).json({
+      //     // solo para probar status de error
+      //     message: 'not found',
+      //   });
+      // } else {
+      //   res.status(200).json({
+      //     //El status 200 viene por default así ue no hace falta agregarlo.
+      //     id, // asi usamos el id
+      //     name: 'Keyboard',
+      //     price: 300,
+      //   });
+      // }
+      const product = await service.findOne(id); //? así llamamos a la función findOne del servicio de productos y saca el producto del servicio mediante metodo findOne que devuelve el producto que coincida con el id que le pasamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
 
-    res.json(product);
-  } catch (error) {
-    next(error); //? para que se ejecute el middleware de error
-    // res.status(404).json({
-    //   message: error.message,
-    // });
+      res.json(product);
+    } catch (error) {
+      next(error); //? para que se ejecute el middleware de error
+      // res.status(404).json({
+      //   message: error.message,
+      // });
+    }
   }
-}); // los dos puntos indica que va a ser un parametro
+); // los dos puntos indica que va a ser un parametro
 
 // {
 //   "id": ":123", // cambia según lo que pongamos en la url
@@ -90,8 +102,10 @@ router.get('/:id', async (req, res, next) => {
 // });
 
 //? POST para crear un producto
-router.post('/', async (req, res, next) => {
-  try {
+router.post(
+  '/',
+  validatorHandler(createProductSchema, 'body'),
+  async (req, res) => {
     /* obtain in body name, price and image and send response with json of new product: */
     // const { name, price, image } = req.body;
     const body = req.body;
@@ -104,34 +118,34 @@ router.post('/', async (req, res, next) => {
     // });
     const newProduct = await service.create(body); //? así llamamos a la función create del servicio de productos y creamos un nuevo producto del servicio mediante metodo create que devuelve el producto que creamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
     res.status(201).json(newProduct);
-  } catch (error) {
-    // res.status(404).json({
-    //   message: error.message,
-    // });
-    next();
   }
-});
+);
 
 //? PATCH para modificar un producto.
 //Debe recibir el id, y aparte en body los atributos que quieran cambiarse
-router.patch('/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const body = req.body;
-    // res.json({
-    //   message: 'updated',
-    //   data: body,
-    //   id,
-    // });
-    const updatedProduct = await service.update(id, body); //? así llamamos a la función update del servicio de productos y actualizamos un producto del servicio mediante metodo update que devuelve el producto que actualizamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
-    res.json(updatedProduct);
-  } catch (error) {
-    // res.status(404).json({
-    //   message: error.message,
-    // });
-    next();
+router.patch(
+  '/:id',
+  validatorHandler(getProductSchema, 'params'), // primero vemos que el id cumpla
+  validatorHandler(updateProductSchema, 'body'), // después que el body cumpla
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      // res.json({
+      //   message: 'updated',
+      //   data: body,
+      //   id,
+      // });
+      const updatedProduct = await service.update(id, body); //? así llamamos a la función update del servicio de productos y actualizamos un producto del servicio mediante metodo update que devuelve el producto que actualizamos. Toda la lógica de la generación de los productos se encuentra en el servicio de productos.
+      res.json(updatedProduct);
+    } catch (error) {
+      // res.status(404).json({
+      //   message: error.message,
+      // });
+      next();
+    }
   }
-});
+);
 // url example: http://localhost:3000/api/v1/products/123
 
 /* Response:
