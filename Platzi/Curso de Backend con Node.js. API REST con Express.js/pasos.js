@@ -209,4 +209,20 @@ Joi sirve especialmente para la validación de esquemas.
 *6) Passport: Passport es un middleware que nos permite establecer diferentes estrategias de autenticación a nuestras aplicaciones. // https://github.com/jaredhanson/passport
 * OTROS: http://expressjs.com/en/resources/middleware.html
 
+TODO ANTES DE ENVIAR A PRODUCCIÓN:
+!14) CORS: Agregar un middleware de seguridad para que no se pueda acceder a la API desde cualquier origen:
+Nosotros desarrollamos en un dominio. Si salen desde el mismo origen nuestro backend acepta la petición. Pero cuando tenemos diferentes origines. Si tienen origines diferentes cancela la petición.
+Si es una API pública:
+*1) npm i cors
+*2) importamos cors en index.js
+*3) app.use(cors()) // o le ponemos options agregando a mano clientes;
+Si es una API privada a la que le queres dar acceso a algunos en particular:
+
+!OTRAS RECOMENDACIONES:
+?1) Nuestra API este solo en un servidor https ya que está cifrada la conexión.
+?2) Procesos de Build: sobre todo con typescript y sass.
+?3) Remover todos los logs.
+?4) Seguridad: HELMET. Colección de middlewares que le ponen una capa de seguridad.
+?5) TESTING.
+
 */

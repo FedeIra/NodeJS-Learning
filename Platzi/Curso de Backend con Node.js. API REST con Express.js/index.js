@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const routerApi = require('./routes');
 
 const {
@@ -13,6 +14,20 @@ const port = 3000; //? creamos una variable para el puerto
 
 /* Middleware: */
 app.use(express.json()); //? para que entienda los json que le llegan
+
+/* CORS */
+// const whitelist = ['http://localhost:8080', 'https://myapp.co'];
+// const options = {
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
+// app.use(cors(options));
+app.use(cors()); //? para que no haya problemas de cors
 
 /* Definimos una ruta inicial: */
 app.get('/', (req, res) => {

@@ -1,0 +1,25 @@
+<!-- SIMULANDO UN CLIENTE -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /* request to api to fecth products: */
+    const request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:3000/api/v1/products');
+    request.send();
+    request.addEventListener('load', (event) => {
+      const products = JSON.parse(event.target.response);
+      console.log(products);
+    });
+  </script>
+</body>
+
+</html>
