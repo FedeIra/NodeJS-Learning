@@ -1,13 +1,13 @@
 const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
+const bcrypt = require('bcrypt');
 
 class CustomerService {
-
   constructor() {}
 
   async find() {
     const rta = await models.Customer.findAll({
-      include: ['user']
+      include: ['user'],
     });
     return rta;
   }
@@ -21,8 +21,16 @@ class CustomerService {
   }
 
   async create(data) {
-    const newCustomer = await models.Customer.create(data, {
-      include: ['user']
+    const hash = await bcrypt.hash(data.user.password, 10);
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        password: hash,
+      },
+    }; //? Creamos un objeto con la info. del cliente y la info. del usuario. El objeto que se guarda en la base de datos es el que tiene la info. del usuario. El objeto que se devuelve al cliente es el que tiene la info. del cliente.
+    const newCustomer = await models.Customer.create(newData, {
+      include: ['user'],
     });
     return newCustomer;
   }
@@ -38,7 +46,6 @@ class CustomerService {
     await model.destroy();
     return { rta: true };
   }
-
 }
 
 module.exports = CustomerService;
