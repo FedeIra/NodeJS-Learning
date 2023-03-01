@@ -8,5 +8,6 @@ Contenido:
 4. Curso Platzi:
    A) Curso de fundamentos de Node.js
    B) Curso de Backend con Node.js: API REST con Express.js
+   C) Curso de Backend con Node.js: Autenticación con Passport.js y JWT
 5. Ejemplos de rutas (checkpoints)
 6. Ejemplos de rutas (EXPRESS)
