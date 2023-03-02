@@ -59,7 +59,18 @@ Autorización: este es el escenario más común para usar JWT. Una vez que el us
 
 Esto permite soportar diversos clientes y que sea stateless.
 
-Un JW Token tiene 3 partes: 1) header: nos dice el algoritmio y tipo, 2) payload: viene la info. que vamos a encerrar en el token (sub: sujeto o dueño, name, y iat: fecha), 3) verificación del token que se firma con una palabra clave
+Un JW Token tiene 3 partes: 1) header: nos dice el algoritmio y tipo, 2) payload: viene la info. que vamos a encerrar en el token (sub: sujeto o dueño, name, y iat: fecha), 3) verificación del token que se firma con una palabra clave.
+
+*1) npm install jsonwebtoken
+*2) npm install passport-jwt
+*3) creamos archivo de estrategia jwt (jwt.strategy.js) en la carpeta de estrategias.
+*4) importamos la jwt strategy al index donde guardamos las estrategias de autenticación y le pedimos a passport q la use (passport.use(JwtStrategy);)
+*5) vamos a la ruta de login y la modificamos para que se firme el token y se devuelva al cliente los datos del usuario con el token
+*6) creamos variable de entorno para el secret en el archivo de config. en la carpeta config. Para asignarle efectivamente una variable de entorno podemos usar keygen.io que genera passwords de forma random (https://keygen.io/) y usamos la WEP 256-bit Key. Generamos key y la ponemos en el .env. Ahora al logear te devuelve un token generado y firmado.
+*7) ahora vamos a los routers que queramos para proteger las rutas. Ej: categories.router.js, router.post para que no puedan crear categorías cualquier usuario. Importamos passport en ese archivo, y agregamos el middleware de password.authenticate en la ruta respectiva aclarando la estrategia ("jwt")
+
+
+
 
 
 */
