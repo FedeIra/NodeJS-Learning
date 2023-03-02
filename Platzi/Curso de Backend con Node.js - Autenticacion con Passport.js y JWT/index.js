@@ -27,7 +27,7 @@ const options = {
 };
 app.use(cors(options));
 
-require('./utils/auth/index.js'); //? importamos el archivo de autenticación
+require('./utils/auth'); //? importamos el archivo de autenticación
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');

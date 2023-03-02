@@ -7,8 +7,8 @@ const option = {
   secretOrKey: config.jwtSecret,
 };
 
-const jwtStrategy = new Strategy(option, (payload, done) => {
-  return done(null, payload);
+const JwtStrategy = new Strategy(option, (payload, done) => {
+  return done(null, payload); //? devuelve el payload del token que le pasamos como parámetro (token)
 });
 
-module.exports = jwtStrategy;
+module.exports = JwtStrategy;
