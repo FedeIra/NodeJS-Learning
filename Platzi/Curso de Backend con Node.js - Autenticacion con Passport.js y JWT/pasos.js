@@ -188,6 +188,13 @@ Se pueden validar permisos, con el token se puede preguntar al backend qué tipo
 *5) en el archivo de auth.service agregamos la lógica de getUser q antes estaba directamente en la ruta, al igual que el signToken, y le agregamos por último la función para recuperar contraseña.
 *6) en el archivo de auth.router modificamos la ruta de login para aplicar el servicio en lugar de tener la lógica en la misma ruta, para eso tenemos q importar la clase de AuthServices y crear una instancia.
 *7) en el archivo de auth.service creamos la función para recuperar contraseña. Para eso importamos nodemailer. En el email vamos a mandar link para recuperar contraseña.
+*8) antes creamos una función para mandar recovery de la password en el servicio de auth (sendRecovery). Ahí mismo le metemos el contenido y limpiamos el contenido de la función sendEmail para que sea reutilizable.
+*9) modificamos la ruta de recovery para que vaya a la función de sendRecovery
+*10) en el servicio de recovery password creamos un nuevo token y envía email con link del token
+*11) como hay un nuevo campo en la base de datos, tenemos que hacer una nueva migración: npm run migrations: generate recovery-token-field
+*12) creamos la nueva migración en la carpeta de migrations
+*13) npm run migrations:run
+*14) ahora que le enviamos al usuario el token por email, necesitamos guardar ese token a través del metodo de user.service update para luego hacer la validación correspondiente.
 
 
 

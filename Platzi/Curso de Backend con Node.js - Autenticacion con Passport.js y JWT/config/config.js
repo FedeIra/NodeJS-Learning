@@ -7,6 +7,7 @@ const config = {
   dbUrl: process.env.DATABASE_URL,
   apiKey: process.env.API_KEY,
   jwtSecret: process.env.JWT_SECRET,
+  jwtSecretRecovery: process.env.JWT_SECRET_RECOVERY,
   email: process.env.EMAIL,
   emailPassword: process.env.EMAIL_PASSWORD,
 };
