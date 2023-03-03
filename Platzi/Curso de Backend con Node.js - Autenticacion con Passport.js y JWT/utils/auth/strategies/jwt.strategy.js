@@ -8,7 +8,7 @@ const option = {
 };
 
 const JwtStrategy = new Strategy(option, (payload, done) => {
-  return done(null, payload); //? devuelve el payload del token que le pasamos como parámetro (token)
+  return done(null, payload); //? devuelve el payload del token que le pasamos como parámetro (token). Devuelve toda la data de "user"
 });
 
 module.exports = JwtStrategy;

@@ -8,21 +8,32 @@ const {
   updateCategorySchema,
   getCategorySchema,
 } = require('./../schemas/category.schema');
+const {
+  // checkAdminRole,
+  checkRoles,
+} = require('./../middlewares/auth.handler.js');
 
 const router = express.Router();
 const service = new CategoryService();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const categories = await service.find();
-    res.json(categories);
-  } catch (error) {
-    next(error);
+router.get(
+  '/',
+  // passport.authenticate('jwt', { session: false }),
+  // checkRoles('admin', 'seller', 'customer'),
+  async (req, res, next) => {
+    try {
+      const categories = await service.find();
+      res.json(categories);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.get(
   '/:id',
+  // passport.authenticate('jwt', { session: false }),
+  // checkRoles(['admin', 'seller', 'customer']),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {
@@ -51,7 +62,9 @@ router.get(
 // );
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }), // tiene que estar si o si la autenticación antes del chequeo del rol pq sino no recibe la info del usuario
+  // checkAdminRole, //? checkAdminRole es un middleware que se ejecuta antes de seguir al siguiente middleware. Chequeamos que el usuario tenga el rol de admin. Si no tiene el rol de admin, no puede crear una categoría.
+  checkRoles('admin', 'seller'), // aplico el middleware directamente pasandole que roles aceptamos para pasar la validación y continuar con el siguiente middleware.
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -66,6 +79,7 @@ router.post(
 
 router.patch(
   '/:id',
+  checkRoles('admin', 'seller'),
   passport.authenticate('jwt', { session: false }),
   validatorHandler(getCategorySchema, 'params'),
   validatorHandler(updateCategorySchema, 'body'),
@@ -84,6 +98,7 @@ router.patch(
 
 router.delete(
   '/:id',
+  checkRoles('admin', 'seller'),
   passport.authenticate('jwt', { session: false }),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {

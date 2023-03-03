@@ -146,3 +146,11 @@ En Insomnia se envía el token a través de los headers o usando la opción Bear
 
 
 */
+
+/*
+!6) CONTROL DE ROLES:
+Hay que diferencias entre roles y la gestión de permisos. Hasta ahora solo se válida que tenga token, y si lo tiene puede hacer todo.
+*1) Hay que trabajar sobre el middleware de autenticación (auth.handler.js)
+*2) creamos un nuevo método que se encargue de validar los roles (checkAdminRole o checkRoles)
+*3) importamos la función en las rutas y agregamos el middleware. Si usamos el checkRoles q permite q varios tipos de roles sean validados, invocamos la función pasandole un array de los roles validos.
+*/
