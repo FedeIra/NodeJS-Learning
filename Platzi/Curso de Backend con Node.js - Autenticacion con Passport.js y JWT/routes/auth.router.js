@@ -15,6 +15,7 @@ router.post(
   async (req, res, next) => {
     try {
       // create payload:
+      console.log(config.PORT);
       const user = req.user;
       const payload = {
         sub: user.id,
@@ -27,5 +28,14 @@ router.post(
     }
   }
 );
+
+// Ruta recuperar contraseña
+// router.post('/recovery', async (req, res, next) => {
+//   try {
+//     const { email } = req.body;
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 module.exports = router;

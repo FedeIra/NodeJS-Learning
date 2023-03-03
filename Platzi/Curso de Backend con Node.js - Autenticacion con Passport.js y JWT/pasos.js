@@ -181,6 +181,10 @@ Se pueden validar permisos, con el token se puede preguntar al backend qué tipo
 
 /*
 !8) ENVIO DE CORREOS CON NODEMAIL Y RECUPERACIÓN DE CONTRASEÑA:
+*1) instalamos nodemailer: npm install nodemailer
+*2) creamos nueva ruta en auth.router para recuperación de contraseña
+*3) creamos un nuevo servicio para enviar el correo (auth.service.js)
+
 
 
 */
