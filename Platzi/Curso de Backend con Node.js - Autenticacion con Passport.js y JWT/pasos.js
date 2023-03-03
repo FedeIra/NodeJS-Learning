@@ -184,6 +184,10 @@ Se pueden validar permisos, con el token se puede preguntar al backend qué tipo
 *1) instalamos nodemailer: npm install nodemailer
 *2) creamos nueva ruta en auth.router para recuperación de contraseña
 *3) creamos un nuevo servicio para enviar el correo (auth.service.js)
+*4) en la estrategia local (local.strategy.js) en lugar de usar el user.service.js usamos el auth.service.js. Lo reemplazamos y eliminamos la lógica que tenía antes de matchear contraseñas y borrar contraseña.
+*5) en el archivo de auth.service agregamos la lógica de getUser q antes estaba directamente en la ruta, al igual que el signToken, y le agregamos por último la función para recuperar contraseña.
+*6) en el archivo de auth.router modificamos la ruta de login para aplicar el servicio en lugar de tener la lógica en la misma ruta, para eso tenemos q importar la clase de AuthServices y crear una instancia.
+*7) en el archivo de auth.service creamos la función para recuperar contraseña. Para eso importamos nodemailer. En el email vamos a mandar link para recuperar contraseña.
 
 
 
