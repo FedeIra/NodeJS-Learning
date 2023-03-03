@@ -6,6 +6,7 @@ const usersRouter = require('./users.router');
 const orderRouter = require('./orders.router');
 const customersRouter = require('./customers.router');
 const authRouter = require('./auth.router'); //? importamos el router de auth
+const profileRouter = require('./profile.router'); //? importamos el router de auth
 
 function routerApi(app) {
   const router = express.Router();
@@ -16,6 +17,7 @@ function routerApi(app) {
   router.use('/orders', orderRouter);
   router.use('/customers', customersRouter);
   router.use('/auth', authRouter); //? usamos el router de auth
+  router.use('/profile', profileRouter); //? usamos el router de profile
 }
 
 module.exports = routerApi;

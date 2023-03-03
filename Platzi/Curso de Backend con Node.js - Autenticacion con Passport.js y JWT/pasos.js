@@ -143,8 +143,6 @@ router.post(
 En resumen, primero se identifica al usuario (passport.authenticate), después se validan los datos (validatorHandler) y si todo bien, se conecta a la capa de servicios para poder crear la categoría.
 
 En Insomnia se envía el token a través de los headers o usando la opción Bearer de la pestaña Auth. Lo mismo con thunder client.
-
-
 */
 
 /*
@@ -153,4 +151,36 @@ Hay que diferencias entre roles y la gestión de permisos. Hasta ahora solo se v
 *1) Hay que trabajar sobre el middleware de autenticación (auth.handler.js)
 *2) creamos un nuevo método que se encargue de validar los roles (checkAdminRole o checkRoles)
 *3) importamos la función en las rutas y agregamos el middleware. Si usamos el checkRoles q permite q varios tipos de roles sean validados, invocamos la función pasandole un array de los roles validos.
+*/
+
+/*
+!7) OBTENER ORDENES DE COMPRA:
+Una opción es obtenerla usando el id del cliente, pero también se puede usar el token utilizando el sub del token.
+*1) creamos un nuevo router (profile.router.js)
+*2) vamos al order.service donde agregamos la nueva función para obtener ordenes de compra utilizando el id del user (no así el id del customer)
+*3) ajustamos el nuevo router (profile.router.js) agregandole el middleware de auth con jwt
+*4) agregamos la nueva ruta al index de rutas
+*/
+
+/*
+? MANEJO DE AUTH DESDE EL CLIENTE:
+*1) un estado de login
+*2) cookies o localStorage: lo mejor es guardarlo en cookies
+*3) enviar en el header
+*4) refresh token: nos sirve para generar un nuevo token cuando el anterior ya expiró. Para aplicaciones bancarias está perfecto hacerlo cada tanto, no así para otras. Entonces, para otras aplicaciones se puede vencer el token pero sin sacarlo del login. Podemos desde el front si se venció el token tener un refresh token que sirve para generar uno nuevo.
+*5) validar permisos: si tenes el token podes pedirle al back end q tipo de perfil es, obtener el perfil y con base a su perfil mostrarle distintas cosas.
+
+Al hacer un login en la API nos da la información del usuario, pero también envían el token. Lo más importante es guardar el token porque debe enviarse en todas las peticiones.
+
+En el cliente deberíamos tener un estado de login, es decir, una vez hecho un login exitoso se debería guardar un estado de sesión iniciada en el frontend.
+Deberíamos guardar el estado (el token) en algún lugar, se recomienda una cookie. También se puede en LocalStorage, pero no es la mejor practica.
+Cada vez que se envíe una petición (request) se debería enviar el token. Si se manejan librerías para hacer requests (ej. axios), hay formas de interceptar la petición y poner el token en el header.
+El token debería tener una expiración, se recomienda que expire en 15-20 minutos, se puede implementar una técnica de refresh token. La API nos puede dar un access token y otro token aparte (refresh token) que nos servirá para generar un nuevo token cuando el access token ya expiró. Se recomienda estar haciendo requests continuamente para no salir de la sesión.
+Se pueden validar permisos, con el token se puede preguntar al backend qué tipo de perfil es, aunque para más seguridad sería mejor hacer un request para obtener el perfil del usuario para no guardar nada en algún lugar.
+*/
+
+/*
+!8) ENVIO DE CORREOS CON NODEMAIL Y RECUPERACIÓN DE CONTRASEÑA:
+
+
 */
