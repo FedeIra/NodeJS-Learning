@@ -4,11 +4,15 @@ services:
   postgres:
     image: postgres:13
     environment:
-      - POSTGRES_DB=my_store
-      - POSTGRES_USER=nico
-      - POSTGRES_PASSWORD=admin123
+      # - POSTGRES_DB=my_store
+      - POSTGRES_DB=railway
+      # - POSTGRES_USER=nico
+      - POSTGRES_USER=postgres
+      # - POSTGRES_PASSWORD=admin123
+      - POSTGRES_PASSWORD=MjPpshpy75pQwH9x6vDv
     ports:
-      - 5432:5432
+      # - 5432:5432
+      - 6155:6155
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
 
@@ -23,9 +27,11 @@ services:
   mysql:
     image: mysql:5
     environment:
-      - MYSQL_DATABASE=my_store
+      # - MYSQL_DATABASE=my_store
+      - MYSQL_DATABASE=railway
       - MYSQL_USER=root
-      - MYSQL_ROOT_PASSWORD=admin123
+      # - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_ROOT_PASSWORD=MjPpshpy75pQwH9x6vDv
       - MYSQL_PORT=3306
     ports:
       - 3306:3306
@@ -35,7 +41,8 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      - MYSQL_ROOT_PASSWORD=admin123
+      # - MYSQL_ROOT_PASSWORD=admin123
+      - MYSQL_ROOT_PASSWORD=MjPpshpy75pQwH9x6vDv
       - PMA_HOST=mysql
     ports:
       - 8080:80
