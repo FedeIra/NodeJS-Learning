@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
-import { UserModel } from '../models/User.js';
+import { UserModel } from '../db/models/User.js';
 
 class UserService {
-  constructor() { }
+  constructor() {}
 
   async createUser(data) {
     // Check if username exists:
@@ -12,18 +12,18 @@ class UserService {
       throw new Error('Username already exists.');
     }
     // hash password:
-      const hash = await bcrypt.hash(data.password, 10);
+    const hash = await bcrypt.hash(data.password, 10);
 
-      const newUser = await UserModel.create({
-        ...data,
-        password: hash
-      });
+    const newUser = await UserModel.create({
+      ...data,
+      password: hash,
+    });
 
     // return username without password:
     return {
       username: newUser.username,
-      createdAt: newUser.createdAt
-    }
+      createdAt: newUser.createdAt,
+    };
   }
 
   // service to get user:
@@ -39,7 +39,7 @@ class UserService {
     return {
       id: user.id,
       username: user.username,
-      createdAt: user.createdAt
+      createdAt: user.createdAt,
     };
   }
 
@@ -51,23 +51,21 @@ class UserService {
 
   // service to update user:
   async updateUser(id, data) {
-
-      if (data.password) {
+    if (data.password) {
       const hashedPassword = await bcrypt.hash(data.password, 10);
       data.password = hashedPassword;
     }
 
-    const updatedUser = await UserModel.findOneAndUpdate(id, data, { new: true })
+    const updatedUser = await UserModel.findOneAndUpdate(id, data, {
+      new: true,
+    });
 
     return {
       id: updatedUser.id,
       username: updatedUser.username,
-      createdAt: updatedUser.createdAt
+      createdAt: updatedUser.createdAt,
     };
   }
 }
 
-export {UserService};
-
-
-
+export { UserService };

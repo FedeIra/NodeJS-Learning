@@ -1,9 +1,7 @@
 import bcrypt from 'bcrypt';
 import boom from '@hapi/boom';
-import 'dotenv/config';
 import jwtService from 'jsonwebtoken';
-
-// const UserService = require('./user.service.js');
+import config from '../config/config.js';
 import { UserService } from './user.service.js';
 
 const service = new UserService();
@@ -13,11 +11,11 @@ class AuthService {
   async logUser(username, password) {
     const user = await service.getUser(username);
     if (!user) {
-      throw boom.unauthorized('Invalid username or password');
+      throw boom.notFound('Invalid username or password.');
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      throw boom.unauthorized('Invalid username or password');
+      throw boom.notFound('Invalid username or password.');
     }
     return user;
   }
@@ -26,14 +24,14 @@ class AuthService {
     const payload = {
       sub: user.id,
     };
-    const token = jwtService.sign(payload, process.env.JWT_SECRET);
+    const token = jwtService.sign(payload, config.jwtSecret);
+
     return {
       token,
       user: {
         username: user.username,
-        createdAt: user.createdAt,
-      }
-    }
+      },
+    };
   }
 }
 

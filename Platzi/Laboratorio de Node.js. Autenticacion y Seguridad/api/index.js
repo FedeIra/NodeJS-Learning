@@ -1,19 +1,16 @@
-import 'dotenv/config';
 import { app } from './app.js';
-import { connect as db } from './database.js';
+import { connect as db } from './db/database.js';
+import config from './config/config.js';
 
 db();
 
-const PORT = process.env.PORT || 3000;
-
-import './utils/auth/index.js';
-
+const PORT = config.port || 3000;
 
 const server = app.listen(PORT, () =>
-  console.log(`[server] Connected to port ${PORT}`)
+  console.log(`Server connected to port ${PORT}.`)
 );
 
 process.on('unhandledRejection', (err) => {
-  console.error(`[server] An error occurred: ${err.message}`);
+  console.error(`An error occurred with server connection: ${err.message}`);
   server.close(() => process.exit(1));
 });

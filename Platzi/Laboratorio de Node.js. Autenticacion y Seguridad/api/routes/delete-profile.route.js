@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
 import { body, check, validationResult } from 'express-validator';
-import { UserModel } from '../models/User.js';
-import {UserService} from '../services/user.service.js';
+import { UserModel } from '../db/models/User.js';
+import { UserService } from '../services/user.service.js';
 const service = new UserService();
 
 export const deleteUser = Router();
@@ -22,5 +22,3 @@ deleteUser.delete(
     }
   }
 );
-
-
