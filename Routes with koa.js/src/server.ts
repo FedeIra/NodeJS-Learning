@@ -4,6 +4,7 @@ import cors from 'koa2-cors';
 import logger from 'koa-logger';
 import healthCheckRoutes from './routes/healthcheck';
 import codereviewvideosRouter from './routes/coderreviewvideos';
+import router from './routes/example';
 import { config } from './config';
 
 const app = new Koa();
@@ -20,6 +21,8 @@ app.use(logger());
 app.use(healthCheckRoutes.routes()); //? It will use all the routes defined in  healthCheckRoutes.
 
 app.use(codereviewvideosRouter.routes());
+
+app.use(router.routes());
 
 const server = app
   .listen(PORT, async () => {
