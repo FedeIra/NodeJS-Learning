@@ -3,6 +3,7 @@ import Router from 'koa-router';
 
 import { AddGameRequest } from '../request/AddGameRequest';
 import { validate } from 'class-validator';
+import { log } from 'util';
 
 const codereviewvideosRouter = new Router();
 
@@ -10,14 +11,8 @@ codereviewvideosRouter.post(`/codereviewvideos`, async (ctx: Context) => {
   try {
     const validatorOptions = {};
 
-    console.log(`CTX: ${JSON.stringify(ctx)}`);
-
-    const requestBody = JSON.stringify(ctx.req);
-
-    console.log(`REQUEST: ${requestBody}`);
-
     const game = new AddGameRequest();
-    // game.name = ctx.request.body.name || '';
+    game.name = ctx.request.body.name || '';
 
     const errors = await validate(game, validatorOptions);
 
